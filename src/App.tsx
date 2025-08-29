@@ -306,7 +306,7 @@ function SkillsSection() {
     },
     {
       title: "AI",
-      skills: ["RAG", "LoRA", "ReAct", "LangChain", "LangGraph", "VectorDBs","Hugging Face","OpenAI","Gemini ADK","Llama","Gemini API"],
+      skills: ["RAG", "LoRA", "ReAct", "LangChain", "LangGraph", "VectorDBs","Hugging Face","OpenAI","Gemini ADK","Llama","Gemini API","n8n"],
       color: "from-violet-400 to-purple-500",
     },
 
