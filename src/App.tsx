@@ -118,30 +118,43 @@ function App() {
               title="EcoWise.ai"
               description="Sustainability assistant that won 1st place at SharkHack'25. Built with Node.js, Angular, and Gemini API for intelligent environmental guidance."
               tags={["Node.js", "Angular", "Gemini API", "AI"]}
-              image="/placeholder-1.svg"
+              image="ecowise.png"
               repo="https://github.com/Vijayrathan/EcoWise.ai"
+              
             />
-            
+            <ProjectCard
+              title="AskWPI.ai"
+              description="AskWPI is a campus-smart SOTA AI assistant that turns universitypolicies and community threads into fast, trusted, cited answers to student-life questions."
+              tags={["Python", "ChromaDB", "RAG", "ReAct", "LoRA","Mistral","LangChain"]}
+              image="askwpi.png"
+              repo="https://github.com/Vijayrathan/ask_wpi"
+            />
             <ProjectCard
               title="Predictive Maintenance System"
               description="ML model for predicting equipment failures using sensor data, reducing downtime by 40% in manufacturing environments."
               tags={["Python",  "PyTorch","TensorFlow","Pandas","Numpy"]}
-              image="/placeholder-3.svg"
+              image="rul.png"
               repo="https://github.com/Vijayrathan/cmapss_application"
             />
-            
             <ProjectCard
               title="Employee Health Monitoring System"
               description="It monitors employee’s health by obtaining data like temperature, glucose etc every minute and processing the data cumulatively in a server"
               tags={["Python", "Flask", "MongoDB", "Laravel"]}
-              image="/placeholder-2.svg"
+              image="emp_health.png"
               repo="https://github.com/Vijayrathan/Employee_Health_Monitor"
+            />
+            <ProjectCard
+              title="Accident Severity Analysis"
+              description="Published  on Accident Severity Analysis using ML and DL."
+              tags={["Python", "PyTorch", "sklearn", "Pandas", "Numpy"]}
+              image="acc.png"
+              repo="https://github.com/Vijayrathan/gpstracking"
             />
             <ProjectCard
               title="GPS Social Distancing"
               description="Published research on GPS-based social distancing system using embedded systems and IoT for public health applications."
               tags={["Flutter", "Firebase", "Python", "ML"]}
-              image="/placeholder-3.svg"
+              image="socdist.png"
               repo="https://github.com/Vijayrathan/gpstracking"
             />
           </div>
@@ -286,14 +299,14 @@ function SkillsSection() {
         "TensorFlow",
         "Scikit-learn",
         "NumPy",
-        "Pandas",
-        "Hugging Face",
+        "Pandas"
+        
       ],
       color: "from-green-400 to-emerald-500",
     },
     {
       title: "AI",
-      skills: ["RAG", "LoRA", "ReAct", "LangChain", "LangGraph", "VectorDBs"],
+      skills: ["RAG", "LoRA", "ReAct", "LangChain", "LangGraph", "VectorDBs","Hugging Face","OpenAI","Gemini ADK","Llama","Gemini API"],
       color: "from-violet-400 to-purple-500",
     },
 
@@ -304,12 +317,12 @@ function SkillsSection() {
     },
     {
       title: "Frontend",
-      skills: ["React", "Tailwind CSS"],
+      skills: ["React", "Tailwind CSS", "Flutter"],
       color: "from-pink-400 to-rose-500",
     },
     {
       title: "Backend",
-      skills: ["Node.js", "Express", "FastAPI", "Flask"],
+      skills: ["Node.js", "Express", "Flask"],
       color: "from-yellow-400 to-orange-500",
     },
   ];
