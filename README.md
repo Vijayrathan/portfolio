@@ -124,10 +124,19 @@ Modify the Tailwind classes in `src/App.tsx` and `src/styles/globals.css`
 
 ### Option 1: Vercel (Recommended)
 
+This repo is configured to deploy the frontend statically and handle the contact form via a Vercel Serverless Function at `/api/contact`.
+
 1. Push to GitHub
-2. Connect to Vercel
-3. Set environment variables
+2. Import the repo in Vercel
+3. Set environment variables:
+   - `RESEND_API_KEY` (Required)
 4. Deploy
+
+Notes:
+
+- No port configuration is needed on Vercel.
+- The API endpoint is implemented in `api/contact.ts` and is available at `/api/contact`.
+- The React app already posts to `/api/contact`, so no client changes are needed.
 
 ### Option 2: Netlify
 
@@ -139,16 +148,16 @@ Modify the Tailwind classes in `src/App.tsx` and `src/styles/globals.css`
 ### Option 3: Custom Server
 
 1. Build the project: `pnpm run build`
-2. Deploy the `dist` folder and `server.js`
+2. Deploy the `dist` folder and `server.js` (Express)
 3. Set environment variables
 4. Run `node server.js`
 
 ## Environment Variables
 
-| Variable         | Description                 | Required |
-| ---------------- | --------------------------- | -------- |
-| `RESEND_API_KEY` | Your Resend API key         | Yes      |
-| `PORT`           | Server port (default: 3001) | No       |
+| Variable         | Description                 | Required                |
+| ---------------- | --------------------------- | ----------------------- |
+| `RESEND_API_KEY` | Your Resend API key         | Yes                     |
+| `PORT`           | Server port (default: 3001) | No (not used on Vercel) |
 
 ## Troubleshooting
 

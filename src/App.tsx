@@ -1,38 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ProjectCard } from "./components/ProjectCard";
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/40 border-b border-white/10">
-        <div className="container mx-auto px-4 flex items-center justify-between h-14">
+        <div className="container mx-auto px-4 flex items-center justify-between h-16">
           <a href="/" className="font-extrabold tracking-tight text-xl">
             VJ.
           </a>
-          <nav className="flex items-center gap-6 text-sm">
-            <a className="hover:text-white/90" href="#projects">
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a className="hover:text-white/90 transition-colors" href="#projects">
               Projects
             </a>
-            <a className="hover:text-white/90" href="#skills">
+            <a className="hover:text-white/90 transition-colors" href="#skills">
               Skills
             </a>
-            <a className="hover:text-white/90" href="#contact">
+            <a className="hover:text-white/90 transition-colors" href="#contact">
               Contact
             </a>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-white/70 hover:text-white transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isMobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <motion.nav
+            className="md:hidden border-t border-white/10 bg-black/95 backdrop-blur-sm"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="container mx-auto px-4 py-4 space-y-3">
+              <a
+                className="block py-2 text-white/70 hover:text-white transition-colors"
+                href="#projects"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Projects
+              </a>
+              <a
+                className="block py-2 text-white/70 hover:text-white transition-colors"
+                href="#skills"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Skills
+              </a>
+              <a
+                className="block py-2 text-white/70 hover:text-white transition-colors"
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </div>
+          </motion.nav>
+        )}
       </header>
 
       <main>
         {/* Hero Section */}
         <section className="relative hero-gradient overflow-hidden">
           <div className="absolute inset-0 pointer-events-none" aria-hidden />
-          <div className="container mx-auto px-4 py-28">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
+          <div className="container mx-auto px-4 py-16 sm:py-20 md:py-28">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="text-center lg:text-left">
                 <motion.h1
-                  className="max-w-4xl text-5xl md:text-6xl font-extrabold tracking-tight leading-tight"
+                  className="max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
@@ -43,7 +112,7 @@ function App() {
                   </span>
                 </motion.h1>
                 <motion.p
-                  className="mt-6 max-w-2xl text-white/70 leading-relaxed"
+                  className="mt-4 sm:mt-6 max-w-2xl text-white/70 leading-relaxed text-sm sm:text-base mx-auto lg:mx-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
@@ -53,43 +122,43 @@ function App() {
                   Engineering, and scalable ML infrastructure.
                 </motion.p>
                 <motion.div
-                  className="mt-10 flex gap-4"
+                  className="mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
                 >
                   <a
                     href="#projects"
-                    className="rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 text-black px-6 py-3 text-sm font-semibold hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    className="rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 text-black px-6 py-3 text-sm font-semibold hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
                   >
                     Explore Projects
                   </a>
                   <a
                     href="#contact"
-                    className="rounded-full border border-white/20 px-6 py-3 text-sm hover:bg-white/5 transition-all duration-300 hover:border-white/30"
+                    className="rounded-full border border-white/20 px-6 py-3 text-sm hover:bg-white/5 transition-all duration-300 hover:border-white/30 text-center"
                   >
                     Contact
                   </a>
                 </motion.div>
               </div>
               <motion.div
-                className="relative"
+                className="relative order-first lg:order-last"
                 initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ delay: 0.6, duration: 1, type: "spring" }}
               >
-                <div className="relative w-96 h-96 mx-auto">
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-violet-400/20 rounded-full blur-3xl animate-pulse"></div>
                   <div className="relative w-full h-full bg-gradient-to-br from-cyan-400/10 to-violet-400/10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
-                    <div className="text-8xl font-bold text-white/30">VJ</div>
+                    <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-white/30">VJ</div>
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse"></div>
                   </div>
-                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-bounce"></div>
+                  <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-bounce"></div>
                   <div
-                    className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-bounce"
+                    className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-bounce"
                     style={{ animationDelay: "0.5s" }}
                   ></div>
-                  <div className="absolute top-1/2 -right-8 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-ping"></div>
+                  <div className="absolute top-1/2 -right-4 sm:-right-8 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-ping"></div>
                 </div>
               </motion.div>
             </div>
@@ -103,17 +172,17 @@ function App() {
         <SkillsSection />
 
         {/* Projects Section */}
-        <section id="projects" className="container mx-auto px-4 py-16">
-          <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold">Featured Projects</h2>
+        <section id="projects" className="container mx-auto px-4 py-12 sm:py-16">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
             <a
               href="#projects"
-              className="text-sm text-sky-300 hover:underline"
+              className="text-sm text-sky-300 hover:underline self-start sm:self-auto"
             >
               View all
             </a>
           </div>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <ProjectCard
               title="EcoWise.ai"
               description="Sustainability assistant that won 1st place at SharkHack'25. Built with Node.js, Angular, and Gemini API for intelligent environmental guidance."
@@ -138,7 +207,7 @@ function App() {
             />
             <ProjectCard
               title="Employee Health Monitoring System"
-              description="It monitors employee’s health by obtaining data like temperature, glucose etc every minute and processing the data cumulatively in a server"
+              description="It monitors employee's health by obtaining data like temperature, glucose etc every minute and processing the data cumulatively in a server"
               tags={["Python", "Flask", "MongoDB", "Laravel"]}
               image="emp_health.png"
               repo="https://github.com/Vijayrathan/Employee_Health_Monitor"
@@ -167,7 +236,7 @@ function App() {
         <CTA />
       </main>
 
-      <footer className="border-t border-white/10 py-10 text-center text-sm text-white/60">
+      <footer className="border-t border-white/10 py-8 sm:py-10 text-center text-sm text-white/60">
         © {new Date().getFullYear()} Vijay — Built with Vite + React
       </footer>
     </div>
@@ -176,15 +245,15 @@ function App() {
 
 function AboutSection() {
   return (
-    <section className="container mx-auto px-4 py-24">
+    <section className="container mx-auto px-4 py-16 sm:py-24">
       <motion.div
-        className="grid lg:grid-cols-2 gap-12 items-center"
+        className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div>
+        <div className="order-2 lg:order-1">
           <motion.div
             className="text-sm font-semibold text-cyan-400 mb-4"
             initial={{ opacity: 0, x: -20 }}
@@ -195,7 +264,7 @@ function AboutSection() {
             About Me
           </motion.div>
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -204,7 +273,7 @@ function AboutSection() {
             AI/ML Engineer with a passion for building intelligent systems
           </motion.h2>
           <motion.div
-            className="space-y-4 text-white/80 leading-relaxed"
+            className="space-y-3 sm:space-y-4 text-white/80 leading-relaxed text-sm sm:text-base"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -230,14 +299,14 @@ function AboutSection() {
               reliability and reduced incident handling times. Alongside
               industry experience, I have built award-winning projects such as
               EcoWise.ai, a sustainability assistant that won 1st place at
-              SharkHack’25, and high-impact ML models for predictive maintenance
+              SharkHack'25, and high-impact ML models for predictive maintenance
               and accident severity analysis. I am passionate about pushing the
               boundaries of AI to create intelligent, reliable, and scalable
               systems that solve meaningful problems.
             </p>
           </motion.div>
           <motion.div
-            className="mt-8 flex gap-4"
+            className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -245,26 +314,26 @@ function AboutSection() {
           >
             <a
               href="#contact"
-              className="rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 px-6 py-3 text-sm font-semibold text-black hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105"
+              className="rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 px-6 py-3 text-sm font-semibold text-black hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105 text-center"
             >
               Get In Touch
             </a>
             <a
               href="#projects"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm hover:bg-white/5 transition-all duration-300"
+              className="rounded-full border border-white/20 px-6 py-3 text-sm hover:bg-white/5 transition-all duration-300 text-center"
             >
               View Projects
             </a>
           </motion.div>
         </div>
         <motion.div
-          className="relative"
+          className="relative order-1 lg:order-2"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <div className="relative w-80 h-80 mx-auto">
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-violet-400/20 rounded-full blur-3xl"></div>
             <div className="relative w-full h-full bg-gradient-to-br from-cyan-400/10 to-violet-400/10 rounded-full border border-white/10 flex items-center justify-center">
               <img
@@ -273,9 +342,9 @@ function AboutSection() {
                 className="w-full h-full object-cover rounded-full"
               />
             </div>
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-pulse"></div>
+            <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-pulse"></div>
             <div
-              className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse"
+              className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse"
               style={{ animationDelay: "1s" }}
             ></div>
           </div>
@@ -328,20 +397,20 @@ function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="container mx-auto px-4 py-24">
+    <section id="skills" className="container mx-auto px-4 py-16 sm:py-24">
       <motion.div
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
           Skills & Tech Stack
         </h2>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {skillCategories.map((category, index) => (
           <motion.div
             key={category.title}
@@ -355,13 +424,13 @@ function SkillsSection() {
             <div
               className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
             ></div>
-            <div className="relative p-6">
-              <h3 className="text-xl font-semibold mb-4">{category.title}</h3>
+            <div className="relative p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">{category.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 rounded-full bg-white/5 text-sm text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-300"
+                    className="px-2 sm:px-3 py-1 rounded-full bg-white/5 text-xs sm:text-sm text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-300"
                   >
                     {skill}
                   </span>
@@ -415,25 +484,25 @@ function Timeline() {
   ];
 
   return (
-    <section className="container mx-auto px-4 py-24">
+    <section className="container mx-auto px-4 py-16 sm:py-24">
       <motion.div
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
           Experience & Timeline
         </h2>
-        <p className="text-white/70 max-w-2xl mx-auto">
+        <p className="text-white/70 max-w-2xl mx-auto text-sm sm:text-base">
           My journey in AI/ML engineering, from research to production systems
         </p>
       </motion.div>
 
       <div className="relative">
         <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/50 via-violet-400/50 to-transparent" />
-        <div className="space-y-12">
+        <div className="space-y-8 sm:space-y-12">
           {items.map((item, idx) => (
             <motion.div
               key={idx}
@@ -446,16 +515,16 @@ function Timeline() {
               <div className="absolute left-0 top-1.5 h-4 w-4 rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 shadow-lg group-hover:scale-125 transition-transform duration-300" />
               <div className="absolute left-2 top-2.5 h-0.5 w-8 bg-gradient-to-r from-cyan-400 to-transparent" />
 
-              <div className="bg-white/[0.02] border border-white/10 rounded-lg p-6 hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300 group-hover:shadow-lg">
-                <div className="flex items-center gap-3 mb-2">
+              <div className="bg-white/[0.02] border border-white/10 rounded-lg p-4 sm:p-6 hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300 group-hover:shadow-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                   <span className="text-sm font-semibold text-cyan-400">
                     {item.year}
                   </span>
-                  <span className="text-xs text-white/50">•</span>
+                  <span className="hidden sm:inline text-xs text-white/50">•</span>
                   <span className="text-xs text-white/60">{item.company}</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-white/70 leading-relaxed">{item.text}</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">{item.text}</p>
               </div>
             </motion.div>
           ))}
@@ -517,9 +586,9 @@ function CTA() {
   };
 
   return (
-    <section id="contact" className="container mx-auto px-4 py-24">
+    <section id="contact" className="container mx-auto px-4 py-16 sm:py-24">
       <motion.div
-        className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] p-10 text-center relative overflow-hidden"
+        className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] p-6 sm:p-10 text-center relative overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -527,17 +596,17 @@ function CTA() {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-violet-400/5 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
         <div className="relative">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-xl sm:text-2xl font-bold">
             Want to build something together?
           </h3>
-          <p className="mt-2 text-white/70">
+          <p className="mt-2 text-white/70 text-sm sm:text-base">
             Send a note — I'll get back promptly.
           </p>
 
           {/* Status Messages */}
           {submitStatus.type && (
             <motion.div
-              className={`mt-4 p-4 rounded-lg ${
+              className={`mt-4 p-3 sm:p-4 rounded-lg ${
                 submitStatus.type === "success"
                   ? "bg-green-500/20 border border-green-500/30 text-green-300"
                   : "bg-red-500/20 border border-red-500/30 text-red-300"
@@ -552,10 +621,10 @@ function CTA() {
 
           <form
             onSubmit={handleSubmit}
-            className="mx-auto mt-6 grid max-w-xl gap-4 text-left"
+            className="mx-auto mt-6 grid max-w-xl gap-3 sm:gap-4 text-left"
           >
             <input
-              className="rounded-md bg-white/5 px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300"
+              className="rounded-md bg-white/5 px-4 py-3 sm:py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300 text-sm sm:text-base"
               placeholder="Your name"
               name="name"
               value={formData.name}
@@ -564,7 +633,7 @@ function CTA() {
               disabled={isSubmitting}
             />
             <input
-              className="rounded-md bg-white/5 px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300"
+              className="rounded-md bg-white/5 px-4 py-3 sm:py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300 text-sm sm:text-base"
               type="email"
               placeholder="Email"
               name="email"
@@ -574,7 +643,7 @@ function CTA() {
               disabled={isSubmitting}
             />
             <textarea
-              className="rounded-md bg-white/5 px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300"
+              className="rounded-md bg-white/5 px-4 py-3 sm:py-2 outline-none focus:ring-2 focus:ring-cyan-400 border border-white/10 hover:border-white/20 transition-colors duration-300 text-sm sm:text-base"
               placeholder="Message"
               name="message"
               rows={4}
@@ -586,7 +655,7 @@ function CTA() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-md bg-gradient-to-r from-cyan-400 to-violet-400 text-black px-6 py-3 font-semibold hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="rounded-md bg-gradient-to-r from-cyan-400 to-violet-400 text-black px-6 py-3 font-semibold hover:from-cyan-300 hover:to-violet-300 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>
