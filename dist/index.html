@@ -2,16 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
     <title>Vijay | AI/ML Engineer</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-CIjtsj-e.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BzqB6c2I.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/vj.jpg" as="image" />
+    
+    <!-- Mobile-specific CSS -->
+    <style>
+      /* Prevent horizontal scroll on mobile */
+      body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Improve mobile tap highlights */
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Better mobile scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Mobile-friendly focus indicators */
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid #22d3ee;
+        outline-offset: 2px;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-BNY43Lis.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CTpyF5wf.css">
   </head>
   <body>
     <div id="root"></div>

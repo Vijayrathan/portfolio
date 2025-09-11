@@ -12,16 +12,22 @@ function App() {
           <a href="/" className="font-extrabold tracking-tight text-xl">
             VJ.
           </a>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a className="hover:text-white/90 transition-colors" href="#projects">
+            <a
+              className="hover:text-white/90 transition-colors"
+              href="#projects"
+            >
               Projects
             </a>
             <a className="hover:text-white/90 transition-colors" href="#skills">
               Skills
             </a>
-            <a className="hover:text-white/90 transition-colors" href="#contact">
+            <a
+              className="hover:text-white/90 transition-colors"
+              href="#contact"
+            >
               Contact
             </a>
           </nav>
@@ -150,7 +156,12 @@ function App() {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-violet-400/20 rounded-full blur-3xl animate-pulse"></div>
                   <div className="relative w-full h-full bg-gradient-to-br from-cyan-400/10 to-violet-400/10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
-                    <div className="text-4xl sm:text-6xl lg:text-8xl font-bold text-white/30">VJ</div>
+                    <img
+                      src="/vj.jpg"
+                      alt="VJ"
+                      className="w-full h-full object-cover rounded-full"
+                    />
+
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse"></div>
                   </div>
                   <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-bounce"></div>
@@ -172,9 +183,14 @@ function App() {
         <SkillsSection />
 
         {/* Projects Section */}
-        <section id="projects" className="container mx-auto px-4 py-12 sm:py-16">
+        <section
+          id="projects"
+          className="container mx-auto px-4 py-12 sm:py-16"
+        >
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold">
+              Featured Projects
+            </h2>
             <a
               href="#projects"
               className="text-sm text-sky-300 hover:underline self-start sm:self-auto"
@@ -185,43 +201,74 @@ function App() {
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <ProjectCard
               title="EcoWise.ai"
-              description="Sustainability assistant that won 1st place at SharkHack'25. Built with Node.js, Angular, and Gemini API for intelligent environmental guidance."
+              description={[
+                "Shipped a full-stack sustainability coach in 24 hours (Node/Express API, MongoDB)",
+                "Fine-tuned Gemini for chat, habit analysis across 6 categories and footprint estimation",
+                "1st place out of 30 teams at MLH SharkHack 25",
+              ]}
               tags={["Node.js", "Angular", "Gemini API", "AI"]}
               image="ecowise.png"
               repo="https://github.com/Vijayrathan/EcoWise.ai"
-              
             />
             <ProjectCard
               title="AskWPI.ai"
-              description="AskWPI is a campus-smart SOTA AI assistant that turns universitypolicies and community threads into fast, trusted, cited answers to student-life questions."
-              tags={["Python", "ChromaDB", "RAG", "ReAct", "LoRA","Mistral","LangChain"]}
+              description={[
+                "Evaluated RAG, ReAct, and fine-tuned LLMs on 546+ university documents with ChromaDB and Hugging Face",
+                "Achieved 87% semantic accuracy and reduced manual support workload by approx. 80%",
+                "First head-to-head benchmark of these SOTA methods in a university context",
+              ]}
+              tags={[
+                "Python",
+                "ChromaDB",
+                "RAG",
+                "ReAct",
+                "LoRA",
+                "Mistral",
+                "LangChain",
+              ]}
               image="askwpi.png"
               repo="https://github.com/Vijayrathan/ask_wpi"
             />
             <ProjectCard
               title="Predictive Maintenance System"
-              description="ML model for predicting equipment failures using sensor data, reducing downtime by 40% in manufacturing environments."
-              tags={["Python",  "PyTorch","TensorFlow","Pandas","Numpy"]}
+              description={[
+                "MAE 8.2 cycles on NASA C-MAPSS FD001 with a multi-head attention Transformer, matching top research models",
+                "Leak-safe pipeline with engine-level splits, early-prediction masking, and piecewise RUL capping; Ablations vs LSTM and 1D-CNN",
+                "Deployed real-time RUL web app with multi-sensor visualization, input validation, and artifact versioning",
+              ]}
+              tags={["Python", "PyTorch", "TensorFlow", "Pandas", "Numpy"]}
               image="rul.png"
               repo="https://github.com/Vijayrathan/cmapss_application"
             />
             <ProjectCard
               title="Employee Health Monitoring System"
-              description="It monitors employee's health by obtaining data like temperature, glucose etc every minute and processing the data cumulatively in a server"
+              description={[
+                "Built end-to-end platform (mobile app, web dashboard, Python API) for minute-level vitals",
+                "Processed ~345k datapoints/day for 40 employees across 6 parameters with p95 ingest-to-API latency < 5s",
+                "Developed ML-based diabetes-risk prediction and automated alerts (ROC-AUC 0.82, p95 notification < 60s)",
+              ]}
               tags={["Python", "Flask", "MongoDB", "Laravel"]}
               image="emp_health.png"
               repo="https://github.com/Vijayrathan/Employee_Health_Monitor"
             />
             <ProjectCard
               title="Accident Severity Analysis"
-              description="Published  on Accident Severity Analysis using ML and DL."
+              description={[
+                "Analysed Accident Severity in USA with XGBoost, CatBoost, Random Forest on ~7M records",
+                "Engineered geospatial and temporal features; time-based cross-validation to avoid leakage",
+                "Handled imbalance with SMOTE + class weights; minority recall +50%, reported macro-F1 and PR-AUC",
+              ]}
               tags={["Python", "PyTorch", "sklearn", "Pandas", "Numpy"]}
               image="acc.png"
               repo="https://github.com/Vijayrathan/gpstracking"
             />
             <ProjectCard
               title="GPS Social Distancing"
-              description="Published research on GPS-based social distancing system using embedded systems and IoT for public health applications."
+              description={[
+                "Published research on GPS-based social distancing monitoring system using embedded systems, mobile app, and IoT",
+                "Developed IoT system with Node.js and ESP32 for real-time tracking and alerts",
+                "Built Flutter app with Firebase for user interaction",
+              ]}
               tags={["Flutter", "Firebase", "Python", "ML"]}
               image="socdist.png"
               repo="https://github.com/Vijayrathan/gpstracking"
@@ -244,6 +291,43 @@ function App() {
 }
 
 function AboutSection() {
+  const carouselImages = ["/mentoring.jpg", "/medals.jpeg", "/group_pic.jpg"];
+  const [carouselIndex, setCarouselIndex] = React.useState(0);
+  const handlePrev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCarouselIndex(
+      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+    );
+  };
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCarouselIndex((prev) => (prev + 1) % carouselImages.length);
+  };
+  const touchStartX = React.useRef<number | null>(null);
+  const touchStartTime = React.useRef<number>(0);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartTime.current = Date.now();
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dt = Date.now() - touchStartTime.current;
+    const threshold = 30; // px
+    if (Math.abs(dx) > threshold && dt < 600) {
+      if (dx < 0) {
+        setCarouselIndex((prev) => (prev + 1) % carouselImages.length);
+      } else {
+        setCarouselIndex(
+          (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+        );
+      }
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <section className="container mx-auto px-4 py-16 sm:py-24">
       <motion.div
@@ -286,23 +370,22 @@ function AboutSection() {
               research focuses on building Retrieval-Augmented Generation (RAG)
               systems and applying deep learning to radar simulations for
               real-world applications such as soil moisture prediction and
-              precision irrigation. With experience across cutting-edge AI tools
-              including PyTorch, LangChain, and vector databases, I thrive at
-              the intersection of applied research and system engineering,
-              bridging theory with impactful solutions.
+              precision irrigation.
             </p>
             <p>
               Before WPI, I worked as a Software Engineer at Tata Consultancy
-              Services, where I designed large-scale backend systems, built
-              metrics aggregation pipelines in Node.js, and automated cloud
-              monitoring workflows that significantly improved system
-              reliability and reduced incident handling times. Alongside
-              industry experience, I have built award-winning projects such as
-              EcoWise.ai, a sustainability assistant that won 1st place at
-              SharkHack'25, and high-impact ML models for predictive maintenance
-              and accident severity analysis. I am passionate about pushing the
-              boundaries of AI to create intelligent, reliable, and scalable
-              systems that solve meaningful problems.
+              Services, where I designed large-scale backend systems, Engineered
+              metrics aggregation pipeline in Node.js processing approx. 30k
+              metric datapoints/min across 20+ cloud services with sub-second
+              end-to-end latency.
+            </p>
+            <p>
+              Alongside industry experience, I have built award-winning projects
+              such as EcoWise.ai, a sustainability assistant that won 1st place
+              at SharkHack'25, and high-impact ML models for predictive
+              maintenance and accident severity analysis. I am passionate about
+              pushing the boundaries of AI to create intelligent, reliable, and
+              scalable systems that solve meaningful problems.
             </p>
           </motion.div>
           <motion.div
@@ -328,26 +411,129 @@ function AboutSection() {
         </div>
         <motion.div
           className="relative order-1 lg:order-2"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-violet-400/20 rounded-full blur-3xl"></div>
-            <div className="relative w-full h-full bg-gradient-to-br from-cyan-400/10 to-violet-400/10 rounded-full border border-white/10 flex items-center justify-center">
-              <img
-                src="/vj.jpg"
-                alt="VJ"
-                className="w-full h-full object-cover rounded-full"
-              />
+          <a
+            href="https://devpost.com/software/ecowise-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block group"
+          >
+            <div className="relative mx-auto w-72 sm:w-96 rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden shadow-lg hover:bg-white/[0.04] transition-colors">
+              {/* Media: swipeable images */}
+              <div
+                className="relative h-40 sm:h-56 overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={onTouchEnd}
+              >
+                <div
+                  className="absolute inset-0 flex transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
+                >
+                  {carouselImages.map((src, idx) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={
+                        idx === 0
+                          ? "Winner medals"
+                          : idx === 1
+                          ? "Team at SharkHack"
+                          : "Mentoring session"
+                      }
+                      className="w-full h-full object-cover flex-shrink-0"
+                    />
+                  ))}
+                </div>
+                {/* Simple overlay badges */}
+                <div className="absolute top-3 left-3 px-2 py-1 text-[10px] sm:text-xs rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
+                  Winner
+                </div>
+                {/* Arrows */}
+                <button
+                  aria-label="Previous"
+                  onClick={handlePrev}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-black/30 hover:bg-black/40 text-white/80"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M15 6l-6 6 6 6" />
+                  </svg>
+                </button>
+                <button
+                  aria-label="Next"
+                  onClick={handleNext}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-black/30 hover:bg-black/40 text-white/80"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M9 6l6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Caption */}
+              <div className="p-4 sm:p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="text-sm sm:text-base font-semibold">
+                    Major League Hacking - SharkHack' 25
+                  </h4>
+                </div>
+                <p className="mt-2 text-xs sm:text-sm text-white/70 leading-relaxed">
+                  Your smart coach for a greener life — Gemini-powered guidance
+                  with playful gamification; built with Angular, Node/Python,
+                  and MongoDB.
+                </p>
+                <p className="mt-2 text-[10px] sm:text-xs text-sky-300 group-hover:underline truncate">
+                  devpost.com/software/ecowise-ai
+                </p>
+
+                {/* Devpost badge large below */}
+                <div className="mt-4 flex justify-end">
+                  <span className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white/80">
+                    <svg
+                      viewBox="0 0 64 64"
+                      className="w-7 h-7 text-sky-300"
+                      fill="currentColor"
+                      aria-hidden
+                    >
+                      <rect
+                        x="6"
+                        y="18"
+                        width="52"
+                        height="28"
+                        rx="8"
+                        className="fill-current opacity-30"
+                      />
+                      <text
+                        x="32"
+                        y="37"
+                        textAnchor="middle"
+                        fontSize="18"
+                        className="fill-current"
+                      >
+                        D
+                      </text>
+                    </svg>
+                    <span className="text-sm sm:text-base">Devpost</span>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-pulse"></div>
-            <div
-              className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse"
-              style={{ animationDelay: "1s" }}
-            ></div>
-          </div>
+          </a>
         </motion.div>
       </motion.div>
     </section>
@@ -363,19 +549,25 @@ function SkillsSection() {
     },
     {
       title: "ML/DL",
-      skills: [
-        "PyTorch",
-        "TensorFlow",
-        "Scikit-learn",
-        "NumPy",
-        "Pandas"
-        
-      ],
+      skills: ["PyTorch", "TensorFlow", "Scikit-learn", "NumPy", "Pandas"],
       color: "from-green-400 to-emerald-500",
     },
     {
       title: "AI",
-      skills: ["RAG", "LoRA", "ReAct", "LangChain", "LangGraph", "VectorDBs","Hugging Face","OpenAI","Gemini ADK","Llama","Gemini API","n8n"],
+      skills: [
+        "RAG",
+        "LoRA",
+        "ReAct",
+        "LangChain",
+        "LangGraph",
+        "VectorDBs",
+        "Hugging Face",
+        "OpenAI",
+        "Gemini ADK",
+        "Llama",
+        "Gemini API",
+        "n8n",
+      ],
       color: "from-violet-400 to-purple-500",
     },
 
@@ -425,7 +617,9 @@ function SkillsSection() {
               className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
             ></div>
             <div className="relative p-4 sm:p-6">
-              <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">{category.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
+                {category.title}
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
@@ -459,7 +653,7 @@ function Timeline() {
     },
     {
       year: "2025 - Present",
-      title: "Master's in AI",
+      title: "Master of Science in AI",
       company: "WPI",
       text: "Specializing in NLP and scalable ML infrastructure",
     },
@@ -520,11 +714,17 @@ function Timeline() {
                   <span className="text-sm font-semibold text-cyan-400">
                     {item.year}
                   </span>
-                  <span className="hidden sm:inline text-xs text-white/50">•</span>
+                  <span className="hidden sm:inline text-xs text-white/50">
+                    •
+                  </span>
                   <span className="text-xs text-white/60">{item.company}</span>
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-white/70 leading-relaxed text-sm sm:text-base">{item.text}</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  {item.text}
+                </p>
               </div>
             </motion.div>
           ))}
@@ -660,6 +860,43 @@ function CTA() {
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
+
+          {/* Alternative contact methods */}
+          <motion.div
+            className="mx-auto max-w-xl mt-6 sm:mt-8 text-left"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+              <h4 className="text-base sm:text-lg font-semibold mb-3 text-white/90">
+                You can also reach me at
+              </h4>
+              <div className="flex flex-col gap-2 text-sm sm:text-base">
+                <a
+                  href="mailto:vijayrathank@gmail.com"
+                  className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                >
+                  <span className="inline-block h-2 w-2 rounded-full bg-cyan-400" />
+                  <span className="underline decoration-white/20 underline-offset-4">
+                    vijayrathank@gmail.com
+                  </span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/vijayrathan-karthikeyan/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                >
+                  <span className="inline-block h-2 w-2 rounded-full bg-violet-400" />
+                  <span className="underline decoration-white/20 underline-offset-4">
+                    linkedin.com/in/vijayrathan-karthikeyan
+                  </span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>
