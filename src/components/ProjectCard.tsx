@@ -127,11 +127,11 @@ export function ProjectCard({
               {description}
             </p>
           )}
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-2">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-2 skill-tag-container">
             {(showAllTags ? tags : tags.slice(0, 4)).map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-white/5 px-2 py-1 text-xs text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-300"
+                className="skill-tag rounded-full bg-white/5 px-1.5 py-0.5 text-[10px] sm:text-xs text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-300 whitespace-nowrap"
               >
                 {t}
               </span>
@@ -139,7 +139,7 @@ export function ProjectCard({
             {tags.length > 4 && !showAllTags && (
               <button
                 type="button"
-                className="rounded-full bg-white/10 px-2 py-1 text-xs text-white/60 border border-white/10 hover:border-white/20 hover:text-white transition-colors duration-300"
+                className="skill-tag rounded-full bg-white/10 px-1.5 py-0.5 text-[10px] sm:text-xs text-white/60 border border-white/10 hover:border-white/20 hover:text-white transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ProjectCard } from "./components/ProjectCard";
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
