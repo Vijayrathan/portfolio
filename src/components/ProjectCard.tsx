@@ -21,8 +21,20 @@ export function ProjectCard({
   const [showAllTags, setShowAllTags] = React.useState(false);
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const [isInView, setIsInView] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
   const cardRef = React.useRef<HTMLDivElement>(null);
   const navigateTo = href || repo;
+
+  // Detect mobile device
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Intersection Observer for better lazy loading
   React.useEffect(() => {
@@ -50,11 +62,17 @@ export function ProjectCard({
           window.location.assign(navigateTo);
         }
       }}
-      className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 block cursor-pointer z-0 min-h-[360px] sm:min-h-[420px]"
-      initial={{ y: 24, opacity: 0 }}
+      className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 block cursor-pointer z-0 min-h-[360px] sm:min-h-[420px] will-change-transform"
+      initial={{ y: isMobile ? 4 : 24, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      transition={{
+        type: isMobile ? "tween" : "spring",
+        stiffness: isMobile ? 0 : 120,
+        damping: isMobile ? 0 : 20,
+        duration: isMobile ? 0.6 : undefined,
+        ease: isMobile ? "easeOut" : undefined,
+      }}
     >
       <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden relative">
         {/* Loading placeholder */}

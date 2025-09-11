@@ -166,3 +166,17 @@ img {
     animation-duration: 1s;
   }
 }
+
+/* Prevent layout shifts during animations */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Smooth project card animations on mobile */
+@media (max-width: 768px) {
+  [data-framer-motion] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
