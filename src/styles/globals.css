@@ -6,42 +6,62 @@
   --gradient: linear-gradient(90deg, #06b6d4, #8b5cf6, #f97316);
 }
 
-html, body, #page-view { height: 100%; }
+html,
+body,
+#page-view {
+  height: 100%;
+}
 
-body { 
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .hero-gradient {
-  background: radial-gradient(1000px 400px at 50% -20%, rgba(56,189,248,0.25), transparent),
-              radial-gradient(800px 300px at 80% 0%, rgba(168,85,247,0.25), transparent),
-              radial-gradient(800px 300px at 20% 0%, rgba(250,204,21,0.25), transparent);
+  background: radial-gradient(
+      1000px 400px at 50% -20%,
+      rgba(56, 189, 248, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      800px 300px at 80% 0%,
+      rgba(168, 85, 247, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      800px 300px at 20% 0%,
+      rgba(250, 204, 21, 0.25),
+      transparent
+    );
 }
 
 /* Prose defaults */
 .prose :where(code):not(:where([class~="not-prose"] *)) {
-  @apply rounded bg-white/5 px-1.5 py-0.5 text-rose-300; 
+  @apply rounded bg-white/5 px-1.5 py-0.5 text-rose-300;
 }
 
 /* Mobile-specific improvements */
 @media (max-width: 640px) {
   /* Improve touch targets */
-  button, a, input, textarea {
+  button,
+  a,
+  input,
+  textarea {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Better mobile typography */
   h1 {
     line-height: 1.1;
   }
-  
+
   h2 {
     line-height: 1.2;
   }
-  
+
   /* Improve mobile spacing */
   .container {
     padding-left: 1rem;
@@ -54,11 +74,11 @@ body {
   .hover\:scale-105:hover {
     transform: none;
   }
-  
+
   .hover\:from-cyan-300:hover {
     background: linear-gradient(to right, #67e8f9, #a855f7);
   }
-  
+
   .hover\:to-violet-300:hover {
     background: linear-gradient(to right, #67e8f9, #a855f7);
   }
@@ -112,4 +132,37 @@ body {
   }
 }
 
+/* Image optimization */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
 
+/* Loading states */
+.image-loading {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+  .animate-pulse {
+    animation-duration: 2s;
+  }
+
+  .animate-spin {
+    animation-duration: 1s;
+  }
+}

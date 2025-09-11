@@ -4,6 +4,25 @@ import { ProjectCard } from "./components/ProjectCard";
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+
+  // Preload critical images
+  React.useEffect(() => {
+    const preloadImages = [
+      "/vj.jpg",
+      "/ecowise.png",
+      "/askwpi.png",
+      "/rul.png",
+      "/emp_health.png",
+      "/acc.png",
+      "/socdist.png",
+    ];
+
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
@@ -156,10 +175,22 @@ function App() {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-violet-400/20 rounded-full blur-3xl animate-pulse"></div>
                   <div className="relative w-full h-full bg-gradient-to-br from-cyan-400/10 to-violet-400/10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
+                    {/* Loading placeholder */}
+                    {!heroImageLoaded && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full animate-pulse flex items-center justify-center">
+                        <div className="w-8 h-8 border-2 border-white/20 border-t-cyan-400 rounded-full animate-spin"></div>
+                      </div>
+                    )}
+
                     <img
                       src="/vj.jpg"
                       alt="VJ"
-                      className="w-full h-full object-cover rounded-full"
+                      className={`w-full h-full object-cover rounded-full transition-opacity duration-500 ${
+                        heroImageLoaded ? "opacity-100" : "opacity-0"
+                      }`}
+                      onLoad={() => setHeroImageLoaded(true)}
+                      loading="eager"
+                      fetchPriority="high"
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse"></div>
@@ -541,6 +572,18 @@ function AboutSection() {
 }
 
 function SkillsSection() {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const skillCategories = [
     {
       title: "Languages",
@@ -606,15 +649,15 @@ function SkillsSection() {
         {skillCategories.map((category, index) => (
           <motion.div
             key={category.title}
-            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500"
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-200 touch-manipulation"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.6 }}
-            whileHover={{ y: -5, scale: 1.02 }}
+            whileHover={!isMobile ? { y: -5, scale: 1.02 } : {}}
           >
             <div
-              className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+              className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 hidden md:block`}
             ></div>
             <div className="relative p-4 sm:p-6">
               <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
@@ -624,14 +667,14 @@ function SkillsSection() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2 sm:px-3 py-1 rounded-full bg-white/5 text-xs sm:text-sm text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-300"
+                    className="px-2 sm:px-3 py-1 rounded-full bg-white/5 text-xs sm:text-sm text-white/70 border border-white/10 hover:border-white/20 transition-colors duration-200"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden md:block">
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-5`}
               ></div>

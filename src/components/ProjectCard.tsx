@@ -19,9 +19,32 @@ export function ProjectCard({
   repo = "#",
 }: ProjectCardProps) {
   const [showAllTags, setShowAllTags] = React.useState(false);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const [isInView, setIsInView] = React.useState(false);
+  const cardRef = React.useRef<HTMLDivElement>(null);
   const navigateTo = href || repo;
+
+  // Intersection Observer for better lazy loading
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "50px" }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <motion.div
+      ref={cardRef}
       onClick={() => {
         if (navigateTo && navigateTo !== "#") {
           window.location.assign(navigateTo);
@@ -33,13 +56,26 @@ export function ProjectCard({
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
-      <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-          loading="lazy"
-        />
+      <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden relative">
+        {/* Loading placeholder */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+            <div className="w-6 h-6 border-2 border-white/20 border-t-cyan-400 rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {isInView && (
+          <img
+            src={image}
+            alt={title}
+            className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.03] ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageLoaded(true)} // Show placeholder on error
+          />
+        )}
       </div>
       <div className="p-4 sm:p-5 grid grid-rows-[auto_1fr] gap-2 h-full">
         <div className="flex items-start justify-between gap-3">
