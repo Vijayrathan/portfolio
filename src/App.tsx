@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ProjectCard } from "./components/ProjectCard";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -318,6 +318,7 @@ function App() {
       <footer className="border-t border-white/10 py-8 sm:py-10 text-center text-sm text-white/60">
         © {new Date().getFullYear()} Vijay — Built with Vite + React
       </footer>
+      <Analytics />
     </div>
   );
 }
