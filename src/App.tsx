@@ -3,21 +3,162 @@ import { motion } from "framer-motion";
 import { ProjectCard } from "./components/ProjectCard";
 import { Analytics } from '@vercel/analytics/react';
 
+/**
+ * Featured work, newest first.
+ *
+ * NOTE: the three newest projects and Accident Severity have no public repo URL
+ * wired up yet — add a `repo: "https://github.com/..."` field to each and the
+ * GitHub link plus card click-through light up automatically. (Accident
+ * Severity previously pointed at the gpstracking repo, which was wrong.)
+ */
+const projects: React.ComponentProps<typeof ProjectCard>[] = [
+  {
+    title: "Discourse-Act-Aware Persuasion Modeling",
+    cover: "/covers/persuasion.png",
+    kicker: "2026 · NLP research",
+    theme: "violet",
+    glyph: "attention",
+    description: [
+      "Transition-aware transformer that predicts whether an online debate will actually change someone's mind, via a custom self-attention bias over discourse act, speaker type and inter-argument distance",
+      "0.766 AUC-ROC across 8,526 argument threads — after tracing and killing a label token leakage bug that had inflated F1 from a true 0.64 to 0.87",
+      "12-trial sweeps, 3 ablations and encoder-quality probes surfaced interpretable rhetoric: elaboration-to-agreement transitions predict successful persuasion",
+    ],
+    tags: ["PyTorch", "Transformers", "NLP", "Hugging Face", "Ablations"],
+  },
+  {
+    title: "Medical Claims Verification on Reddit Health",
+    cover: "/covers/claims.png",
+    kicker: "2025 · Biomedical NLP",
+    theme: "emerald",
+    glyph: "graph",
+    description: [
+      "Claim-verification pipeline that extracts biomedical entities from Reddit comments and checks the asserted relation against a structured knowledge base (UMLS/SemMedDB) with SapBERT and FAISS",
+      "PubMed cross-check scores every claim by its ratio of therapeutic-use to adverse-effect literature",
+      "Classified 86K health claims as supported / ambiguous / unverified at 0.84 accuracy",
+    ],
+    tags: ["Python", "SapBERT", "FAISS", "UMLS", "PubMed", "Entity Linking"],
+  },
+  {
+    title: "Fine-tuning Gemma-3 for Extractive QA",
+    cover: "/covers/gemma.png",
+    kicker: "2025 · Efficient fine-tuning",
+    theme: "amber",
+    glyph: "adapter",
+    description: [
+      "Fine-tuned Gemma-3 on SQuAD with LoRA/QLoRA on a memory-optimized pipeline: mixed precision, gradient checkpointing and quantization",
+      "Cut GPU memory by over 40%, bringing the run inside a single-GPU budget",
+      "Reached 75.2 EM / 78.6 F1, a clear lift over the base model",
+    ],
+    tags: ["PyTorch", "LoRA", "QLoRA", "Gemma-3", "PEFT", "Hugging Face"],
+  },
+  {
+    title: "AskWPI.ai",
+    cover: "/covers/askwpi.png",
+    kicker: "Campus RAG assistant",
+    theme: "sky",
+    glyph: "retrieval",
+    description: [
+      "Benchmarked RAG, ReAct and fine-tuned LLMs head-to-head over 546+ university documents with ChromaDB and Hugging Face",
+      "87% semantic accuracy, cutting manual support workload by roughly 80%",
+      "First side-by-side comparison of these methods in a university support context",
+    ],
+    tags: [
+      "Python",
+      "ChromaDB",
+      "RAG",
+      "ReAct",
+      "LoRA",
+      "Mistral",
+      "LangChain",
+    ],
+    repo: "https://github.com/Vijayrathan/ask_wpi",
+  },
+  {
+    title: "Predictive Maintenance — RUL Transformer",
+    cover: "/covers/rul.png",
+    kicker: "NASA C-MAPSS",
+    theme: "cyan",
+    glyph: "curve",
+    description: [
+      "MAE of 8.2 cycles on NASA C-MAPSS FD001 with a multi-head attention Transformer, matching published research baselines",
+      "Leak-safe pipeline: engine-level splits, early-prediction masking and piecewise RUL capping, ablated against LSTM and 1D-CNN",
+      "Shipped a real-time RUL web app with multi-sensor visualization, input validation and artifact versioning",
+    ],
+    tags: ["Python", "PyTorch", "TensorFlow", "Pandas", "NumPy"],
+    repo: "https://github.com/Vijayrathan/cmapss_application",
+  },
+  {
+    title: "EcoWise.ai",
+    cover: "/covers/ecowise.png",
+    kicker: "1st of 30 · SharkHack '25",
+    theme: "lime",
+    glyph: "loop",
+    description: [
+      "Full-stack sustainability coach shipped in 24 hours on a Node/Express API with MongoDB",
+      "Gemini-powered chat, habit analysis across 6 categories and carbon footprint estimation",
+      "Won 1st place out of 30 teams at MLH SharkHack '25",
+    ],
+    tags: ["Node.js", "Angular", "Gemini API", "MongoDB", "Full-stack"],
+    repo: "https://github.com/Vijayrathan/EcoWise.ai",
+  },
+  {
+    title: "Accident Severity Analysis",
+    cover: "/covers/accidents.png",
+    kicker: "~7M US crash records",
+    theme: "rose",
+    glyph: "grid",
+    description: [
+      "Modelled US accident severity with XGBoost, CatBoost and Random Forest across roughly 7M records",
+      "Engineered geospatial and temporal features, validated with time-based cross-validation to keep the future out of the training set",
+      "Handled class imbalance with SMOTE plus class weights, lifting minority recall by 50% and reporting macro-F1 and PR-AUC rather than raw accuracy",
+    ],
+    tags: ["Python", "XGBoost", "CatBoost", "scikit-learn", "Pandas", "SMOTE"],
+  },
+];
+
+/** Headline numbers, pulled straight from the work below. */
+const metrics = [
+  { value: "4.0", label: "GPA, MS in AI at WPI" },
+  { value: "0.83", label: "Recall@3 on hybrid retrieval" },
+  { value: "86K", label: "health claims classified" },
+  { value: "1st / 30", label: "MLH SharkHack '25" },
+];
+
+/** Research output and writing. */
+const research = [
+  {
+    title: "Discourse-Act-Aware Persuasion Modeling",
+    venue: "Graduate research · WPI",
+    year: "2026",
+    note: "Transition-aware transformer with a self-attention bias over discourse acts; 0.766 AUC-ROC over 8,526 argument threads.",
+  },
+  {
+    title: "Claim Verification over Biomedical Knowledge Bases",
+    venue: "Graduate research · WPI",
+    year: "2025",
+    note: "SapBERT and FAISS entity linking against UMLS/SemMedDB with a PubMed evidence cross-check, over 86K Reddit health claims.",
+  },
+  {
+    title: "RAG Co-pilot for Electromagnetic Simulation Workflows",
+    venue: "SoilX Labs · WPI",
+    year: "2025",
+    note: "Hybrid BM25 and semantic retrieval over 134 multi-modal research documents, reaching Recall@3 of 0.83.",
+  },
+  {
+    title: "GPS-Based Social Distancing Monitoring System",
+    venue: "Published paper · Anna University",
+    year: "2021",
+    note: "Embedded hardware, IoT tracking and a Flutter companion app for real-time proximity alerts.",
+  },
+];
+
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroImageLoaded, setHeroImageLoaded] = useState(false);
 
   // Preload critical images
   React.useEffect(() => {
-    const preloadImages = [
-      "/vj.jpg",
-      "/ecowise.png",
-      "/askwpi.png",
-      "/rul.png",
-      "/emp_health.png",
-      "/acc.png",
-      "/socdist.png",
-    ];
+    const preloadImages = ["/vj.jpg"];
 
     preloadImages.forEach((src) => {
       const img = new Image();
@@ -43,6 +184,12 @@ function App() {
             </a>
             <a className="hover:text-white/90 transition-colors" href="#skills">
               Skills
+            </a>
+            <a
+              className="hover:text-white/90 transition-colors"
+              href="#research"
+            >
+              Research
             </a>
             <a
               className="hover:text-white/90 transition-colors"
@@ -109,6 +256,13 @@ function App() {
               </a>
               <a
                 className="block py-2 text-white/70 hover:text-white transition-colors"
+                href="#research"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Research
+              </a>
+              <a
+                className="block py-2 text-white/70 hover:text-white transition-colors"
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -132,9 +286,9 @@ function App() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  I turn data into products.
+                  I build AI systems that hold up in production.
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-orange-300">
-                    Building delightful AI applications.
+                    Agents, retrieval, evaluation.
                   </span>
                 </motion.h1>
                 <motion.p
@@ -208,6 +362,9 @@ function App() {
           </div>
         </section>
 
+        {/* Headline numbers */}
+        <MetricsBand />
+
         {/* About Section */}
         <AboutSection />
 
@@ -220,93 +377,33 @@ function App() {
           className="container mx-auto px-4 py-12 sm:py-16"
         >
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="text-2xl sm:text-3xl font-bold">
-              Featured Projects
-            </h2>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold">
+                Featured Projects
+              </h2>
+              <p className="mt-2 text-sm sm:text-base text-white/60 max-w-2xl">
+                Research and systems work, from persuasion modeling to
+                retrieval pipelines and efficient fine-tuning.
+              </p>
+            </div>
             <a
-              href="#projects"
-              className="text-sm text-sky-300 hover:underline self-start sm:self-auto"
+              href="https://github.com/Vijayrathan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-sky-300 hover:underline self-start sm:self-auto shrink-0"
             >
-              View all
+              View all on GitHub
             </a>
           </div>
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <ProjectCard
-              title="EcoWise.ai"
-              description={[
-                "Shipped a full-stack sustainability coach in 24 hours (Node/Express API, MongoDB)",
-                "Fine-tuned Gemini for chat, habit analysis across 6 categories and footprint estimation",
-                "1st place out of 30 teams at MLH SharkHack 25",
-              ]}
-              tags={["Node.js", "Angular", "Gemini API", "AI"]}
-              image="ecowise.png"
-              repo="https://github.com/Vijayrathan/EcoWise.ai"
-            />
-            <ProjectCard
-              title="AskWPI.ai"
-              description={[
-                "Evaluated RAG, ReAct, and fine-tuned LLMs on 546+ university documents with ChromaDB and Hugging Face",
-                "Achieved 87% semantic accuracy and reduced manual support workload by approx. 80%",
-                "First head-to-head benchmark of these SOTA methods in a university context",
-              ]}
-              tags={[
-                "Python",
-                "ChromaDB",
-                "RAG",
-                "ReAct",
-                "LoRA",
-                "Mistral",
-                "LangChain",
-              ]}
-              image="askwpi.png"
-              repo="https://github.com/Vijayrathan/ask_wpi"
-            />
-            <ProjectCard
-              title="Predictive Maintenance System"
-              description={[
-                "MAE 8.2 cycles on NASA C-MAPSS FD001 with a multi-head attention Transformer, matching top research models",
-                "Leak-safe pipeline with engine-level splits, early-prediction masking, and piecewise RUL capping; Ablations vs LSTM and 1D-CNN",
-                "Deployed real-time RUL web app with multi-sensor visualization, input validation, and artifact versioning",
-              ]}
-              tags={["Python", "PyTorch", "TensorFlow", "Pandas", "Numpy"]}
-              image="rul.png"
-              repo="https://github.com/Vijayrathan/cmapss_application"
-            />
-            <ProjectCard
-              title="Employee Health Monitoring System"
-              description={[
-                "Built end-to-end platform (mobile app, web dashboard, Python API) for minute-level vitals",
-                "Processed ~345k datapoints/day for 40 employees across 6 parameters with p95 ingest-to-API latency < 5s",
-                "Developed ML-based diabetes-risk prediction and automated alerts (ROC-AUC 0.82, p95 notification < 60s)",
-              ]}
-              tags={["Python", "Flask", "MongoDB", "Laravel"]}
-              image="emp_health.png"
-              repo="https://github.com/Vijayrathan/Employee_Health_Monitor"
-            />
-            <ProjectCard
-              title="Accident Severity Analysis"
-              description={[
-                "Analysed Accident Severity in USA with XGBoost, CatBoost, Random Forest on ~7M records",
-                "Engineered geospatial and temporal features; time-based cross-validation to avoid leakage",
-                "Handled imbalance with SMOTE + class weights; minority recall +50%, reported macro-F1 and PR-AUC",
-              ]}
-              tags={["Python", "PyTorch", "sklearn", "Pandas", "Numpy"]}
-              image="acc.png"
-              repo="https://github.com/Vijayrathan/gpstracking"
-            />
-            <ProjectCard
-              title="GPS Social Distancing"
-              description={[
-                "Published research on GPS-based social distancing monitoring system using embedded systems, mobile app, and IoT",
-                "Developed IoT system with Node.js and ESP32 for real-time tracking and alerts",
-                "Built Flutter app with Firebase for user interaction",
-              ]}
-              tags={["Flutter", "Firebase", "Python", "ML"]}
-              image="socdist.png"
-              repo="https://github.com/Vijayrathan/gpstracking"
-            />
+            {projects.map((project) => (
+              <ProjectCard key={project.title} {...project} />
+            ))}
           </div>
         </section>
+
+        {/* Research & publications */}
+        <Research />
 
         {/* Timeline */}
         <Timeline />
@@ -320,6 +417,86 @@ function App() {
       </footer>
       <Analytics />
     </div>
+  );
+}
+
+function MetricsBand() {
+  return (
+    <section className="container mx-auto px-4 -mt-4 sm:-mt-8">
+      <motion.dl
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:p-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        {metrics.map((m, idx) => (
+          <motion.div
+            key={m.label}
+            className="text-center lg:text-left px-2 py-2"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.08, duration: 0.5 }}
+          >
+            <dt className="sr-only">{m.label}</dt>
+            <dd>
+              <span className="block text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-violet-300">
+                {m.value}
+              </span>
+              <span className="mt-1 block text-xs sm:text-sm text-white/60 leading-snug">
+                {m.label}
+              </span>
+            </dd>
+          </motion.div>
+        ))}
+      </motion.dl>
+    </section>
+  );
+}
+
+function Research() {
+  return (
+    <section id="research" className="container mx-auto px-4 py-16 sm:py-24">
+      <motion.div
+        className="mb-8 sm:mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
+          Research & Writing
+        </h2>
+        <p className="text-white/70 max-w-2xl text-sm sm:text-base">
+          Work where the contribution is the method, not the product.
+        </p>
+      </motion.div>
+
+      <ol className="space-y-3 sm:space-y-4">
+        {research.map((r, idx) => (
+          <motion.li
+            key={r.title}
+            className="group rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-6 hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.08, duration: 0.5 }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+              <h3 className="text-base sm:text-lg font-semibold">{r.title}</h3>
+              <span className="shrink-0 text-xs sm:text-sm font-semibold text-cyan-400">
+                {r.year}
+              </span>
+            </div>
+            <p className="mt-1 text-xs sm:text-sm text-white/50">{r.venue}</p>
+            <p className="mt-2 text-sm sm:text-base text-white/70 leading-relaxed">
+              {r.note}
+            </p>
+          </motion.li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
@@ -387,7 +564,7 @@ function AboutSection() {
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            AI/ML Engineer with a passion for building intelligent systems
+            From backend systems at scale to AI systems you can trust
           </motion.h2>
           <motion.div
             className="space-y-3 sm:space-y-4 text-white/80 leading-relaxed text-sm sm:text-base"
@@ -589,46 +766,67 @@ function SkillsSection() {
   const skillCategories = [
     {
       title: "Languages",
-      skills: ["Python", "JavaScript", "SQL", "Dart"],
+      skills: ["Python", "TypeScript", "JavaScript", "SQL"],
       color: "from-cyan-400 to-blue-500",
     },
     {
-      title: "ML/DL",
-      skills: ["PyTorch", "TensorFlow", "Scikit-learn", "NumPy", "Pandas"],
+      title: "AI / ML Frameworks",
+      skills: [
+        "PyTorch",
+        "TensorFlow",
+        "Hugging Face",
+        "Scikit-learn",
+        "LangChain",
+        "LangGraph",
+        "DSPy",
+      ],
       color: "from-green-400 to-emerald-500",
     },
     {
-      title: "AI",
+      title: "LLM Systems",
       skills: [
         "RAG",
-        "LoRA",
+        "Hybrid retrieval",
+        "Multi-agent orchestration",
+        "LoRA / QLoRA",
         "ReAct",
-        "LangChain",
-        "LangGraph",
-        "VectorDBs",
-        "Hugging Face",
-        "OpenAI",
-        "Gemini ADK",
-        "Llama",
-        "Gemini API",
-        "n8n",
+        "Prompt evaluation",
+        "LLM-as-judge",
+        "BERTScore",
       ],
       color: "from-violet-400 to-purple-500",
     },
-
     {
-      title: "Cloud & DevOps",
-      skills: ["Docker", "Kubernetes", "CI/CD", "Terraform", "Ansible"],
-      color: "from-orange-400 to-red-500",
-    },
-    {
-      title: "Frontend",
-      skills: ["React", "Tailwind CSS", "Flutter"],
+      title: "Data & Visualization",
+      skills: ["Pandas", "NumPy", "Matplotlib", "Pydantic"],
       color: "from-pink-400 to-rose-500",
     },
     {
-      title: "Backend",
-      skills: ["Node.js", "Express", "Flask"],
+      title: "MLOps & Cloud",
+      skills: [
+        "Docker",
+        "Kubernetes",
+        "MLflow",
+        "DVC",
+        "Jenkins",
+        "Ansible",
+        "AWS",
+        "Azure",
+        "Git",
+      ],
+      color: "from-orange-400 to-red-500",
+    },
+    {
+      title: "Databases & Stores",
+      skills: [
+        "PostgreSQL",
+        "MongoDB",
+        "FAISS",
+        "ChromaDB",
+        "Node.js",
+        "Express",
+        "Flask",
+      ],
       color: "from-yellow-400 to-orange-500",
     },
   ];
@@ -691,34 +889,40 @@ function SkillsSection() {
 function Timeline() {
   const items = [
     {
-      year: "2025 - Present",
-      title: "Research Assistant",
-      company: "WPI",
-      text: "Building Retrieval-Augmented Generation (RAG) systems and applying deep learning to radar simulations for real-world applications such as soil moisture prediction and precision irrigation.",
+      year: "May 2026 - Present",
+      title: "AI Software Engineer Intern",
+      company: "Dassault Systèmes · Johnston, RI",
+      text: "Redesigned the Abaqus AI assistant's conversation memory from static full-history retention to a dynamic short-term / long-term split, reducing context overload as conversations grow. Replaced fixed-size chunking of simulation failure logs with a parent-child strategy, improving retrieval precision and the assistant's ability to surface the true failure cause.",
     },
     {
-      year: "2025 - Present",
-      title: "Master of Science in AI",
-      company: "WPI",
-      text: "Specializing in NLP and scalable ML infrastructure",
+      year: "Jan 2026 - May 2026",
+      title: "AI Engineer Intern",
+      company: "Findability Sciences · Burlington, MA",
+      text: "Developed 39 specialized agents for automated long-form document generation, collapsing a multi-week manual workflow into an end-to-end pipeline that produces full drafts in minutes. Designed a three-tier evaluation framework (BERTScore, LLM-as-judge, input perturbation) across 3 prompt variants per agent, driving aggregated BERTScore from 0.865 to 0.892.",
     },
     {
-      year: "2022 - 2024",
+      year: "Apr 2025 - Aug 2025",
+      title: "Research Assistant — SoilX Labs",
+      company: "Worcester Polytechnic Institute",
+      text: "Designed a RAG-based co-pilot for electromagnetic simulation workflows, giving users and downstream agents grounded technical knowledge for evidence-backed decisions. Built an ingestion pipeline over 134 large multi-modal research documents with hybrid retrieval fusing BM25 and semantic search, achieving Recall@3 of 0.83.",
+    },
+    {
+      year: "2025 - Dec 2026",
+      title: "MS, Artificial Intelligence — GPA 4.0",
+      company: "Worcester Polytechnic Institute",
+      text: "Coursework in Natural Language Processing, Deep Learning and MLOps.",
+    },
+    {
+      year: "Aug 2021 - Dec 2024",
       title: "Software Engineer",
-      company: "TCS",
-      text: "Designed and developed backend systems for large-scale applications, built metrics aggregation pipelines in Node.js, and automated cloud monitoring workflows that significantly improved system reliability and reduced incident handling times.",
-    },
-    {
-      year: "2021 - 2022",
-      title: "Assistant Software Engineer",
-      company: "TCS",
-      text: "Designed and developed backend systems for large-scale applications, built metrics aggregation pipelines in Node.js, and automated cloud monitoring workflows that significantly improved system reliability and reduced incident handling times.",
+      company: "Tata Consultancy Services · Bangalore",
+      text: "Designed and tested REST APIs in Node.js and Mocha, improving p95 latency for Load Balancer APIs from roughly 300 ms to 120 ms. Built automation pipelines orchestrating incident management across Jira, ServiceNow, PagerDuty and Slack, cutting low-priority incident handling from about 10 minutes to under 2.",
     },
     {
       year: "2017 - 2021",
-      title: "Bachelor's in Electronics and Communication Engineering",
-      company: "Anna University",
-      text: "Published papers on GPS based social distancing system",
+      title: "BE, Electronics and Communication Engineering",
+      company: "Anna University · Chennai",
+      text: "Published research on a GPS-based social distancing monitoring system built on embedded hardware, IoT and a Flutter mobile app.",
     },
   ];
 
