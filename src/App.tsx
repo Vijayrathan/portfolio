@@ -116,14 +116,6 @@ const projects: React.ComponentProps<typeof ProjectCard>[] = [
   },
 ];
 
-/** Headline numbers, pulled straight from the work below. */
-const metrics = [
-  { value: "4.0", label: "GPA, MS in AI at WPI" },
-  { value: "0.83", label: "Recall@3 on hybrid retrieval" },
-  { value: "86K", label: "health claims classified" },
-  { value: "1st / 30", label: "MLH SharkHack '25" },
-];
-
 /** Research output and writing. */
 const research = [
   {
@@ -362,9 +354,6 @@ function App() {
           </div>
         </section>
 
-        {/* Headline numbers */}
-        <MetricsBand />
-
         {/* About Section */}
         <AboutSection />
 
@@ -417,41 +406,6 @@ function App() {
       </footer>
       <Analytics />
     </div>
-  );
-}
-
-function MetricsBand() {
-  return (
-    <section className="container mx-auto px-4 -mt-4 sm:-mt-8">
-      <motion.dl
-        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:p-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
-        {metrics.map((m, idx) => (
-          <motion.div
-            key={m.label}
-            className="text-center lg:text-left px-2 py-2"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.08, duration: 0.5 }}
-          >
-            <dt className="sr-only">{m.label}</dt>
-            <dd>
-              <span className="block text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-violet-300">
-                {m.value}
-              </span>
-              <span className="mt-1 block text-xs sm:text-sm text-white/60 leading-snug">
-                {m.label}
-              </span>
-            </dd>
-          </motion.div>
-        ))}
-      </motion.dl>
-    </section>
   );
 }
 
